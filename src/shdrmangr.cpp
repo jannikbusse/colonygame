@@ -4,7 +4,7 @@
 #include "../shader/shader.cpp"
 
 
-unsigned int defaultShaderProgram;
+Shader defaultShaderProgram;
 
 static int link_shaders(unsigned int &shaderProgram, unsigned int vertexShaderHandle, unsigned int fragmentShaderHandle)
 {
@@ -69,10 +69,13 @@ int shdrmngr_compile_shaders()
 		goto cleanup_and_return;
 	}
 
-	if(link_shaders(defaultShaderProgram, vertexShader, fragmentShader))
+	if(link_shaders(defaultShaderProgram.shaderProgram, vertexShader, fragmentShader))
 	{
-		return 1;
+		res = 1;
+		goto cleanup_and_return;
 	}
+	defaultShaderProgram.modelLoc = glGetUniformLocation(defaultShaderProgram.shaderProgram, "model");
+	defaultShaderProgram.colorLoc = glGetUniformLocation(defaultShaderProgram.shaderProgram, "color");
 
 cleanup_and_return:
 	// Once linked, you can delete the shader objects

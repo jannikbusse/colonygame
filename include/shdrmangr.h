@@ -4,7 +4,13 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <shader.h>
+
+
+
 int shdrmngr_compile_shaders();
-extern unsigned int defaultShaderProgram;
+extern Shader defaultShaderProgram;
+
+
 
 #endif

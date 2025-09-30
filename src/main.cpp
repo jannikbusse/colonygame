@@ -10,6 +10,8 @@
 #include <modelmgr.h>
 #include <GameObject.h>
 
+#include <renderer.h>
+
 Modelmgr *mdlmgr;
 
 void framebuffer_size_callback(GLFWwindow* w,int width,int height){
@@ -38,32 +40,30 @@ int main() {
 	}
 
 	mdlmgr = Modelmgr::get_instance();
-
-	test_function();
 	GameObject go;
-	go.go_test();
+	go.model = &(mdlmgr->square_mesh);
+	go.shader = &defaultShaderProgram;
+	go.transform.color.z = 0.5;
+	go.transform.model =  glm::translate(go.transform.model, glm::vec3(0.5f, 0.0f, 0.0f));;
 
-	glm::mat4 model = glm::mat4(1.0f); // identity matrix
-	model = glm::translate(model, glm::vec3(-1, 1, 1));   // position
-																			// model = glm::rotate(model, angle, glm::vec3(0.0f, 1.0f, 0.0f)); // rotation
-																			// model = glm::scale(model, glm::vec3(sx, sy, sz));    // scale
-	glm::vec3 color(1.0f, 2.0f, 0.0f);
+	GameObject go2;
+	go2.model = &(mdlmgr->square_mesh);
+	go2.shader = &defaultShaderProgram;
+	go2.transform.model =  glm::translate(go2.transform.model, glm::vec3(-0.5f, 0.0f, 0.0f));;
+
 
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	glUseProgram(defaultShaderProgram);
+	glUseProgram(defaultShaderProgram.shaderProgram);
 
-	GLuint modelLoc = glGetUniformLocation(defaultShaderProgram, "model");
-	GLuint colorLoc = glGetUniformLocation(defaultShaderProgram, "color");
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	glUniform3fv(colorLoc, 1, glm::value_ptr(color));
 
 	while (!glfwWindowShouldClose(window)) {
 		glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glBindVertexArray(mdlmgr->square_mesh._VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		draw_game_object(go);
+		draw_game_object(go2);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
