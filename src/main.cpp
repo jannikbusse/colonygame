@@ -60,7 +60,8 @@ int main() {
 	while (!glfwWindowShouldClose(window)) {
 		glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-
+		
+		*go.transform.y += 0.01f;
 		glBindVertexArray(mdlmgr->square_mesh._VAO);
 		draw_game_object(go);
 		draw_game_object(go2);

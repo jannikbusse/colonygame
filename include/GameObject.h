@@ -14,12 +14,22 @@ struct Transform
 	glm::mat4 model;
 	glm::vec3 color;
 
+
+	float *x;
+	float *y;
+	float *z;
+
 	Transform()
 	{
 		model = glm::mat4(1.0f);
 		color.x = 1;
 		color.y = 0;
 		color.z = 0;
+
+
+		x = &(model[3][0]);
+		y = &(model[3][1]);
+		z = &(model[3][2]);
 	}
 };
 
