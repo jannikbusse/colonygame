@@ -1,10 +1,12 @@
 #include <shdrmangr.h>
 #include <iostream>
-
+#include <unordered_map>
 #include "../shader/shader.cpp"
+#include <GameObject.h>
 
 
 Shader defaultShaderProgram;
+std::unordered_map<Shader*, std::vector<GameObject*>> shaderMap;
 
 static int link_shaders(unsigned int &shaderProgram, unsigned int vertexShaderHandle, unsigned int fragmentShaderHandle)
 {
@@ -84,5 +86,10 @@ cleanup_and_return:
 
 	//link shaders
 	return res;
+}
+
+void register_shader_in_map(Shader *shader)
+{
+	shaderMap[shader];
 }
 
