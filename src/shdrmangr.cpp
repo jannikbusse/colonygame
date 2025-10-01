@@ -2,7 +2,6 @@
 #include <iostream>
 #include <unordered_map>
 #include "../shader/shader.cpp"
-#include <GameObject.h>
 
 
 Shader defaultShaderProgram;
@@ -92,4 +91,5 @@ void register_shader_in_map(Shader *shader)
 {
 	shaderMap[shader];
 }
+
 
