@@ -11,6 +11,7 @@
 
 void draw_game_object(GameObject &go)
 {
+	go.transform.update_model_matrix();
 	glUniformMatrix4fv(go.shader->modelLoc, 1, GL_FALSE, glm::value_ptr(go.transform.model));
 	glUniform3fv(go.shader->colorLoc, 1, glm::value_ptr(go.transform.color));
 

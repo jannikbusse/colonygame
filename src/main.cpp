@@ -44,13 +44,10 @@ int main() {
 	go.model = &(mdlmgr->square_mesh);
 	go.shader = &defaultShaderProgram;
 	go.transform.color.z = 0.5;
-	go.transform.model =  glm::translate(go.transform.model, glm::vec3(0.5f, 0.0f, 0.0f));;
 
 	GameObject go2;
 	go2.model = &(mdlmgr->square_mesh);
 	go2.shader = &defaultShaderProgram;
-	go2.transform.model =  glm::translate(go2.transform.model, glm::vec3(-0.5f, 0.0f, 0.0f));;
-
 
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -60,8 +57,8 @@ int main() {
 	while (!glfwWindowShouldClose(window)) {
 		glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		
-		*go.transform.y += 0.01f;
+	
+		go.transform.translate(0, -0.01f, 0);
 		glBindVertexArray(mdlmgr->square_mesh._VAO);
 		draw_game_object(go);
 		draw_game_object(go2);

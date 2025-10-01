@@ -2,6 +2,7 @@
 #include<iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <linux/limits.h>
 
 
 void test_function()
@@ -26,4 +27,13 @@ void GameObject::render()
 GameObject::GameObject()
 {
 	std::cout << "Running the init\n";
+}
+
+void Transform::update_model_matrix()
+{
+	if (dirtyMatrix)
+	{
+		dirtyMatrix = 0;
+		model = get_model_matrix();
+	}
 }
