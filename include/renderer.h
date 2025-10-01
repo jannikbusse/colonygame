@@ -5,6 +5,7 @@
 #include <GameObject.h>
 
 
-void draw_game_object(GameObject &go);
+
+void draw_game_objects();
 
 #endif

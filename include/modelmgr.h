@@ -17,6 +17,7 @@ class Modelmgr
 	public:
 		static Modelmgr *get_instance();
 		struct model_info square_mesh;
+		struct model_info square2_mesh;
 
 	private:
 		Modelmgr();

@@ -12,13 +12,28 @@
 #include <iostream>
 
 
-void draw_game_object(GameObject &go)
+static void draw_game_object(GameObject *go)
 {
-	go.transform.update_model_matrix();
-	glUniformMatrix4fv(go.shader->modelLoc, 1, GL_FALSE, glm::value_ptr(go.transform.model));
-	glUniform3fv(go.shader->colorLoc, 1, glm::value_ptr(go.transform.color));
+	go->transform.update_model_matrix();
+	glUniformMatrix4fv(go->shader->modelLoc, 1, GL_FALSE, glm::value_ptr(go->transform.model));
+	glUniform3fv(go->shader->colorLoc, 1, glm::value_ptr(go->transform.color));
 
-	go.render();
+	(*go).render();
+}
+
+void draw_game_objects()
+{
+	for(const auto& pair: shaderMap)
+	{
+		std::cout << "Running shader render loop\n";
+
+		glUseProgram(pair.first->shaderProgram);
+		for(GameObject *go : pair.second)
+		{
+			draw_game_object(go);
+			std::cout << "		Running go render loop\n";
+		}
+	}
 }
 
 

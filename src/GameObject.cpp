@@ -19,7 +19,7 @@ void GameObject::go_test()
 
 void GameObject::render()
 {
-	std::cout << "Rendering....\n";
+	glBindVertexArray(model->_VAO);
 	glDrawElements(GL_TRIANGLES, model->_vert_count, GL_UNSIGNED_INT, 0);
 
 }

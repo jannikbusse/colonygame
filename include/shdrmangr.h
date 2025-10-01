@@ -6,7 +6,8 @@
 
 #include <vector>
 #include <shader.h>
-
+#include <unordered_map>
+#include <GameObject.h>
 
 
 extern std::unordered_map<Shader*, std::vector<GameObject*>> shaderMap;

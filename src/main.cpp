@@ -9,6 +9,7 @@
 #include <shdrmangr.h>
 #include <modelmgr.h>
 #include <GameObject.h>
+#include <objectmngr.h>
 
 #include <renderer.h>
 
@@ -38,6 +39,7 @@ int main() {
 		std::cout << "Failed to compile shaders" << std::endl;
 		return -1;
 	}
+	register_shader_in_map(&defaultShaderProgram);
 
 	mdlmgr = Modelmgr::get_instance();
 	GameObject go;
@@ -46,12 +48,14 @@ int main() {
 	go.transform.color.z = 0.5;
 
 	GameObject go2;
-	go2.model = &(mdlmgr->square_mesh);
+	go2.model = &(mdlmgr->square2_mesh);
 	go2.shader = &defaultShaderProgram;
+
+	register_game_object(&go);
+	register_game_object(&go2);
 
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	glUseProgram(defaultShaderProgram.shaderProgram);
 
 
 	while (!glfwWindowShouldClose(window)) {
@@ -59,9 +63,8 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
 	
 		go.transform.translate(0, -0.01f, 0);
-		glBindVertexArray(mdlmgr->square_mesh._VAO);
-		draw_game_object(go);
-		draw_game_object(go2);
+
+		draw_game_objects();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
