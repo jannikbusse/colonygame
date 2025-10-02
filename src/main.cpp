@@ -42,17 +42,18 @@ int main() {
 	register_shader_in_map(&defaultShaderProgram);
 
 	mdlmgr = Modelmgr::get_instance();
-	GameObject go;
-	go.model = &(mdlmgr->square_mesh);
-	go.shader = &defaultShaderProgram;
-	go.transform.color.z = 0.5;
+	GameObject *go;
+	GameObject *go2;
 
-	GameObject go2;
-	go2.model = &(mdlmgr->square2_mesh);
-	go2.shader = &defaultShaderProgram;
+	go = 	create_game_object<GameObject>();
+	go2 = create_game_object<GameObject>();
+	go->model = &(mdlmgr->square_mesh);
+	go->shader = &defaultShaderProgram;
+	go->transform.color.z = 0.5;
 
-	register_game_object(&go);
-	register_game_object(&go2);
+	go2->model = &(mdlmgr->square2_mesh);
+	go2->shader = &defaultShaderProgram;
+
 
 
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -62,7 +63,7 @@ int main() {
 		glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 	
-		go.transform.translate(0, -0.01f, 0);
+		go->transform.translate(0, -0.01f, 0);
 
 		draw_game_objects();
 
