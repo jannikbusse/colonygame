@@ -23,15 +23,14 @@ static void draw_game_object(GameObject *go)
 
 void draw_game_objects()
 {
+
 	for(const auto& pair: shaderMap)
 	{
-		std::cout << "Running shader render loop\n";
 
 		glUseProgram(pair.first->shaderProgram);
 		for(GameObject *go : pair.second)
 		{
 			draw_game_object(go);
-			std::cout << "		Running go render loop\n";
 		}
 	}
 }

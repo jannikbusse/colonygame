@@ -1,0 +1,11 @@
+#pragma once
+
+#include <GameObject.h>
+#include <vector>
+#include <shdrmangr.h>
+
+
+extern std::vector<GameObject*> gameObjects;
+
+
+void register_game_object(GameObject *go);

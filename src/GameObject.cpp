@@ -21,7 +21,14 @@ void GameObject::render()
 {
 	glBindVertexArray(model->_VAO);
 	glDrawElements(GL_TRIANGLES, model->_vert_count, GL_UNSIGNED_INT, 0);
+}
 
+void GameObject::update(float deltaTime)
+{
+	std::cout << "updating game object \n";
+	float newpos = (transform.get_position().x + 0.1 * deltaTime);
+	if(newpos >= 1) newpos -= 2;
+	transform.set_position_x(newpos);
 }
 
 GameObject::GameObject()

@@ -33,7 +33,6 @@ int main() {
 		std::cerr << "Failed to init GLAD\n";
 		return -1;
 	}
-
 	if(shdrmngr_compile_shaders()) 
 	{
 		std::cout << "Failed to compile shaders" << std::endl;
@@ -54,17 +53,13 @@ int main() {
 	go2->model = &(mdlmgr->square2_mesh);
 	go2->shader = &defaultShaderProgram;
 
-
-
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 
 	while (!glfwWindowShouldClose(window)) {
 		glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-	
-		go->transform.translate(0, -0.01f, 0);
-
+		update_game_objects();
 		draw_game_objects();
 
 		glfwSwapBuffers(window);

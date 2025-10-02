@@ -112,6 +112,7 @@ class GameObject
 		Shader *shader;
 		void go_test();
 		void render();
+		void update(float deltaTime);
 
 };
 
