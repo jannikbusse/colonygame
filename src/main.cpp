@@ -25,6 +25,9 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+
+
+
 	GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL Window", nullptr, nullptr);
 	if (!window) { glfwTerminate(); return -1; }
 	glfwMakeContextCurrent(window);
@@ -33,6 +36,11 @@ int main() {
 		std::cerr << "Failed to init GLAD\n";
 		return -1;
 	}
+
+	glEnable(GL_DEPTH_TEST);
+
+// Set the function to use (default is GL_LESS)
+	glDepthFunc(GL_LESS);
 	if(shdrmngr_compile_shaders()) 
 	{
 		std::cout << "Failed to compile shaders" << std::endl;
@@ -44,8 +52,10 @@ int main() {
 	GameObject *go;
 	GameObject *go2;
 
-	go = 	create_game_object<GameObject>();
 	go2 = create_game_object<GameObject>();
+	go = 	create_game_object<GameObject>();
+	go->transform.set_position_z(-0.1);
+	go2->transform.set_position_z(-0.05);
 	go->model = &(mdlmgr->square_mesh);
 	go->shader = &defaultShaderProgram;
 	go->transform.color.z = 0.5;
@@ -58,7 +68,8 @@ int main() {
 
 	while (!glfwWindowShouldClose(window)) {
 		glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		// Clear the depth buffer each frame along with the color buffer
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		update_game_objects();
 		draw_game_objects();
 
