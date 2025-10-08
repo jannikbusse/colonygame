@@ -4,5 +4,6 @@
 #include <GameObject.h>
 
 void draw_game_objects();
+void set_max_render_frequency_hz(float hz);
 
 #endif

@@ -10,25 +10,25 @@
 #include <modelmgr.h>
 #include <GameObject.h>
 #include <objectmngr.h>
-
 #include <renderer.h>
+#include <clock.h>
 
 Modelmgr *mdlmgr;
+GLFWwindow* window;
 
 void framebuffer_size_callback(GLFWwindow* w,int width,int height){
 	glViewport(0,0,width,height);
 }
 
-int main() {
+static int init_gl_context()
+{
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+	window = glfwCreateWindow(800, 600, "OpenGL Window", nullptr, nullptr);
 
-
-
-	GLFWwindow* window = glfwCreateWindow(800, 600, "OpenGL Window", nullptr, nullptr);
 	if (!window) { glfwTerminate(); return -1; }
 	glfwMakeContextCurrent(window);
 
@@ -41,6 +41,15 @@ int main() {
 
 // Set the function to use (default is GL_LESS)
 	glDepthFunc(GL_LESS);
+	return 0;
+}
+
+int main() {
+	int res = init_gl_context();
+	if(res) return res;
+
+
+	set_max_render_frequency_hz(1);
 	if(shdrmngr_compile_shaders()) 
 	{
 		std::cout << "Failed to compile shaders" << std::endl;
@@ -70,6 +79,7 @@ int main() {
 		glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 		// Clear the depth buffer each frame along with the color buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		update_delta_time();
 		update_game_objects();
 		draw_game_objects();
 
