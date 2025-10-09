@@ -49,7 +49,7 @@ int main() {
 	if(res) return res;
 
 
-	set_max_render_frequency_hz(1);
+	set_max_render_frequency_hz(2);
 	if(shdrmngr_compile_shaders()) 
 	{
 		std::cout << "Failed to compile shaders" << std::endl;
@@ -76,15 +76,10 @@ int main() {
 
 
 	while (!glfwWindowShouldClose(window)) {
-		glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
-		// Clear the depth buffer each frame along with the color buffer
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		update_delta_time();
 		update_game_objects();
-		draw_game_objects();
+		draw_game_objects(window);
 
-		glfwSwapBuffers(window);
-		glfwPollEvents();
 	}
 	glfwTerminate();
 	return 0;
